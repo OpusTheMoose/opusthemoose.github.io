@@ -1,26 +1,35 @@
 import {type IRenderer} from "../IRenderer";
 
-import triangleShader from "../../shaders/square.wgsl?raw";
+import triangleShader from "../../shaders/webgpu/square.wgsl?raw";
 
 
 export class WebGPURenderer implements IRenderer {
     private encoder! : GPUCommandEncoder
     private device! : GPUDevice
+    private context! : GPUCanvasContext
+    private vertexBuffer! : GPUBuffer
+    private indexBuffer! : GPUBuffer
+    private renderPipeline! : GPURenderPipeline
+    private backgroundBindGroup! : GPUBindGroup
 
 
-    async init(canvas: HTMLCanvasElement, context: GPUCanvasContext){
+    async init(canvas: HTMLCanvasElement){
     const adapter = await navigator.gpu.requestAdapter();
         if (!adapter) {
             throw new Error("No appropriate GPUAdapter found.");
         }
 
+
         this.device = await adapter.requestDevice();
 
-
-
-        if (!context) {
-            throw new Error("Could not get a webgpu context (Should fall back onto webGL instance) ")
+        var context = canvas.getContext("webgpu") as GPUCanvasContext | null;
+        if (context == null)
+        {
+            console.log("Failed to init WebGPU backend!");
+            return
         }
+        this.context = context
+
         const canvasFormat = navigator.gpu.getPreferredCanvasFormat();
         context.configure({
             device: this.device,
@@ -40,13 +49,13 @@ export class WebGPURenderer implements IRenderer {
             0, 1, 2, 0, 2, 3
         ])
 
-        const vertexBuffer = this.device.createBuffer({
+        this.vertexBuffer = this.device.createBuffer({
             label: "Cell vertices",
             size: vertices.byteLength,
             usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
         })
 
-        const indexBuffer = this.device.createBuffer({
+        this.indexBuffer = this.device.createBuffer({
             label: "Index buffer",
             size: indices.byteLength,
             usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST
@@ -57,8 +66,8 @@ export class WebGPURenderer implements IRenderer {
             usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
         });
 
-        this.device.queue.writeBuffer(vertexBuffer, /*bufferOffset=*/0, vertices);
-        this.device.queue.writeBuffer(indexBuffer, 0, indices );
+        this.device.queue.writeBuffer(this.vertexBuffer, /*bufferOffset=*/0, vertices);
+        this.device.queue.writeBuffer(this.indexBuffer, 0, indices );
 
         const vertexBufferLayout: GPUVertexBufferLayout = {
             arrayStride: 8, // in bytes
@@ -75,7 +84,7 @@ export class WebGPURenderer implements IRenderer {
             
         });
 
-        const cellPipeline = this.device.createRenderPipeline({
+        this.renderPipeline = this.device.createRenderPipeline({
         label: "Cell pipeline",
         layout: "auto",
         vertex: {
@@ -92,8 +101,8 @@ export class WebGPURenderer implements IRenderer {
         }
     });
 
-    const bindGroup = this.device.createBindGroup({
-            layout: cellPipeline.getBindGroupLayout(0),
+    this.backgroundBindGroup = this.device.createBindGroup({
+            layout: this.renderPipeline.getBindGroupLayout(0),
             entries: [
                 {binding: 0, resource: uniformBuffer},
             ],
@@ -104,12 +113,16 @@ export class WebGPURenderer implements IRenderer {
 
 
     this.device.queue.writeBuffer(uniformBuffer, 0, uniformValues)
+    this.drawFrame()
 
 
+    }
+
+    drawFrame(): void {
 
      const pass = this.encoder.beginRenderPass({
             colorAttachments: [{
-                view: context.getCurrentTexture().createView(),
+                view: this.context.getCurrentTexture().createView(),
                 loadOp: "clear",
                 clearValue: {r: 1, g: 0, b: 0, a: 1},
                 storeOp: "store"
@@ -118,10 +131,10 @@ export class WebGPURenderer implements IRenderer {
 
         // After encoder.beginRenderPass()
 
-        pass.setPipeline(cellPipeline);
-        pass.setVertexBuffer(0, vertexBuffer);
-        pass.setIndexBuffer(indexBuffer, "uint32");
-        pass.setBindGroup(0, bindGroup)
+        pass.setPipeline(this.renderPipeline);
+        pass.setVertexBuffer(0, this.vertexBuffer);
+        pass.setIndexBuffer(this.indexBuffer, "uint32");
+        pass.setBindGroup(0, this.backgroundBindGroup)
 
         pass.drawIndexed(6); // 4 vertices
 
@@ -129,5 +142,7 @@ export class WebGPURenderer implements IRenderer {
 
         this.device.queue.submit([this.encoder.finish()]);
 
+
+        return
     }
 }

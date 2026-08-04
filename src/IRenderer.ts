@@ -1,3 +1,4 @@
 export interface IRenderer {
-    init(canvas: HTMLCanvasElement, context : GPUCanvasContext): Promise<void>
+    init(canvas: HTMLCanvasElement): Promise<void>
+    drawFrame() : void
 }

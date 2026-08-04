@@ -1,5 +1,6 @@
 import type { IRenderer } from "./IRenderer";
 import { WebGPURenderer } from "./renderers/webgpu";
+import { WebGLRenderer } from "./renderers/webgl";
 
  async function main() {
         const canvas = document.querySelector("canvas");
@@ -10,21 +11,8 @@ import { WebGPURenderer } from "./renderers/webgpu";
         canvas.height = window.innerHeight;
 
         var backend : IRenderer
-        var context = canvas.getContext("webgpu") as GPUCanvasContext | null;
-        // fall back to webgl
-        if (!context) {
-            
-            context = canvas.getContext("webgl2") as GPUCanvasContext | null;
-        
-        }
-        else {
-            backend = new WebGPURenderer
-            backend.init(canvas, context)
-        }
-        
-
-
-
+        backend = new WebGLRenderer
+        backend.init(canvas)
        
 
 }
