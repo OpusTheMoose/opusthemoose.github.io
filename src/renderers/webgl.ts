@@ -6,6 +6,14 @@ import bgFragSource from "../../shaders/webgl/background.frag?raw";
 
 export class WebGLRenderer implements IRenderer{
     private gl! : WebGL2RenderingContext
+    private programInfo! : any
+
+    resize(width: number, height: number)
+    {
+        this.gl.useProgram(this.programInfo.program)
+        this.gl.uniform2fv(this.programInfo.uniformLocations.dim, new Float32Array([width, height]))
+        this.drawFrame()
+    }
 
     async init(canvas: HTMLCanvasElement)  {
         var context = canvas.getContext("webgl2") as WebGL2RenderingContext | null;
@@ -30,7 +38,7 @@ export class WebGLRenderer implements IRenderer{
         {
             throw new Error(`Unable to initalize shader program: ${this.gl.getProgramInfoLog(shaderProgram)}`)
         }
-        const programInfo = {
+        this.programInfo = {
             program: shaderProgram,
             attribLocations: {
                 vertexPosition: this.gl.getAttribLocation(shaderProgram, "aPos"),
@@ -54,19 +62,9 @@ export class WebGLRenderer implements IRenderer{
         this.gl.vertexAttribPointer(
             0, 2, this.gl.FLOAT, false, 0, 0
         );
-        this.gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition)
+        this.gl.enableVertexAttribArray(this.programInfo.attribLocations.vertexPosition)
+        this.resize(canvas.width, canvas.height)
 
-
-        
-
-        this.gl.clearColor(1, 0, 0, 1);
-        this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-
-        this.gl.useProgram(programInfo.program)
-        this.gl.uniform2fv(programInfo.uniformLocations.dim, new Float32Array([canvas.width, canvas.height]))
-        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4)
-
-        
         
     }
     private loadShader(type: number, source: string ): WebGLShader {
@@ -85,6 +83,14 @@ export class WebGLRenderer implements IRenderer{
         return shader
     }
     async drawFrame() {
+        this.gl.clearColor(1, 0, 0, 1);
+        this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+
+       
+        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4)
         return
     }
+    // void resize(width: number, height: number) {
+  
+    // }
 }

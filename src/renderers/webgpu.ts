@@ -11,6 +11,7 @@ export class WebGPURenderer implements IRenderer {
     private indexBuffer! : GPUBuffer
     private renderPipeline! : GPURenderPipeline
     private backgroundBindGroup! : GPUBindGroup
+    private uniformBuffer! : GPUBuffer
 
 
     async init(canvas: HTMLCanvasElement){
@@ -61,7 +62,7 @@ export class WebGPURenderer implements IRenderer {
             usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST
         })
 
-        const uniformBuffer = this.device.createBuffer({
+        this.uniformBuffer = this.device.createBuffer({
             size: 2 * 4, // 2 4 byte floats
             usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
         });
@@ -104,7 +105,7 @@ export class WebGPURenderer implements IRenderer {
     this.backgroundBindGroup = this.device.createBindGroup({
             layout: this.renderPipeline.getBindGroupLayout(0),
             entries: [
-                {binding: 0, resource: uniformBuffer},
+                {binding: 0, resource: this.uniformBuffer},
             ],
         })
     
@@ -112,7 +113,7 @@ export class WebGPURenderer implements IRenderer {
     uniformValues.set([canvas.width, canvas.height], 0)
 
 
-    this.device.queue.writeBuffer(uniformBuffer, 0, uniformValues)
+    this.device.queue.writeBuffer(this.uniformBuffer, 0, uniformValues)
     this.drawFrame()
 
 
@@ -144,5 +145,13 @@ export class WebGPURenderer implements IRenderer {
 
 
         return
+    }
+    resize(width: number, height: number): void { 
+        const uniformValues = new Float32Array(2); 
+        uniformValues.set([width, height], 0)
+
+
+        this.device.queue.writeBuffer(this.uniformBuffer, 0, uniformValues)
+        this.drawFrame()    
     }
 }

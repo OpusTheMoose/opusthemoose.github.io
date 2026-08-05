@@ -13,6 +13,10 @@ import { WebGLRenderer } from "./renderers/webgl";
         var backend : IRenderer
         backend = new WebGLRenderer
         backend.init(canvas)
+
+       window.addEventListener('resize', () => {
+            backend.resize(window.innerWidth, window.innerHeight)
+       });
        
 
 }
