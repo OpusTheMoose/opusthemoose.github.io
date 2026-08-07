@@ -85,3 +85,21 @@ figcaption {
     background-color: #f4f4f4;
     text-align: center;
 }
+
+
+.projects-panel {
+    position: fixed;
+    display: grid;
+    background-color: white;
+    border-radius: 10px;
+    top:10%;
+    left:50%;
+    transform: translateX(-50%);
+
+}
+
+.projects-panel h1,
+.projects-panel h2,
+.projects-panel p {
+  padding-left: 10px;
+}
