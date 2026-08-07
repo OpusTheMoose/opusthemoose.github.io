@@ -12,6 +12,7 @@ html, body {
     z-index: 2;
 }
 .navbar {
+    z-index: 3;
     display: flex;
     position: fixed;
     top: 0;
@@ -20,8 +21,67 @@ html, body {
     height: auto;
     background-color: #0000FF0F;
 }
+.navbar-left {
+    display: flex;
+}
 
-#nav-button {
-    background-color: inherit;
+.navbar-center {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.nav-button {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+    font-weight: bold;
+    background-color: transparent;
+    border-style: none;
     padding: 16px 16px;
+    transition-duration: 0.4s;
+    z-index: inherit;
+}
+.nav-button:hover {
+    background-color: #0000FF0F;
+
+}
+.panel {
+    position: fixed;
+    display: flex;
+    background-color: rgba(233, 229, 229, 0.389);
+    border-radius: 10px;
+    top:10%;
+    left:50%;
+    width: fit-content;
+    height: fit-content;
+    transform: translateX(-50%)
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 1rem;
+}
+
+.image-button {
+    display: flex;
+    background-size: cover;
+    width: 450px;
+    height: 300px;
+    border: none;
+    cursor: pointer;
+}
+
+#mandelbrot {
+    background-image: url('pics/mandelbrot.png');
+}
+figure {
+    padding: 4px;
+    margin: auto;
+}
+figcaption {
+    background-color: #f4f4f4;
+    text-align: center;
 }

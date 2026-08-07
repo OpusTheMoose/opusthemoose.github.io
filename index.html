@@ -5,15 +5,15 @@
     <meta charset="utf-8">
     <title>Home</title>
     <link rel="stylesheet" href="main.css">
+    <script src="src/components/navbar.ts" defer></script>
   </head>
   
   <body>
     <canvas id="background" width="800" height="600"></canvas>
       <script type="module" src="src/renderer.ts"></script>
     <canvas id="foreground" width="800" height="600"></canvas>
-    <div class="navbar">
-      <button id="nav-button">Click me</button>
-    </div>
+    <site-navbar></site-navbar>
+   
 
   </body>
 </html>
