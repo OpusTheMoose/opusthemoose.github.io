@@ -4,7 +4,32 @@
         <meta charset="utf-8">
         <title>Portfolio</title>
         <link rel="stylesheet" href="../../main.css">
+        <link rel="stylesheet" href="../../static/katex/katex.min.css">
+        <script defer src="../../static/katex/katex.min.js"></script>
+
+         <!-- To automatically render math in text elements, include the auto-render extension: -->
+        <script defer src="../../static/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
+    });
+</script>
+
         <script src="../components/navbar.ts" defer></script>
+
+        
     </head>
     <body>
          <canvas id="background" width="800" height="600"></canvas>
@@ -16,6 +41,14 @@
         <img src="../../pics/mandelbrot.png" alt="Mandelbrot set" style="width:100%; height:100%">
         <h1>CPU-Rendered Mandelbrot Set</h1>
         <h2>Overview</h2>
+        <p>The Mandelbrot set is a set defined in the complex plane by the formula $f_c(z) = z^2 + c$, where $c$ is a complex number starting at z = 0
+            . The algorithm is then the sequence $f_c(0)$, $f_c(f_c(0))$, etc. For the Mandelbrot set, this function is evaulated for each pixel on the screen.
+            If the number of iterations exceeds the max number of iterations (the function diverges at c), then the color is black. 
+            Otherwise, the number of iterations it took to become unbound is plotted as a color (HSV in the above picture). 
+            Since the Mandelbrot set is closed, values that exceed the radius $|Z_n| > 2$ are considered unbound.
+        </p>
+        <h2>Algorithm</h2>
+        <p>pee pee poo poo</p>
     </div>
     </body>
 </html>
