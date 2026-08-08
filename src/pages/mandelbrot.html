@@ -47,8 +47,29 @@
             Otherwise, the number of iterations it took to become unbound is plotted as a color (HSV in the above picture). 
             Since the Mandelbrot set is closed, values that exceed the radius $|Z_n| > 2$ are considered unbound.
         </p>
+        <img src="../../pics/zoom2.png" alt="Mandelbrot zoom" style="width:100%; height:100%">
+        <figcaption>Feature of Mandelbrot set at -0.7449 + 0.1i</figcaption>
         <h2>Algorithm</h2>
-        <p>pee pee poo poo</p>
+        <p>One of the inital challenges is converting screen-space coordinates ([x, y] starting from the top-left) into complex coordinates (0, 0 in the center).
+           Since z is a complex number, we can represent z as $z = x + iy$. Then, $z^2 = x^2 + 2xyi - y^2$. Finally, c is our inital condition, so $c = x_0 + iy_0$.
+           Therefore, $x = Re(z^2 + c) = x^2 - y^2 + x_0$ and $y = Im(z^2 +c) = 2xy + y_0$.
+        </p>
+        <code>
+           <p> for (x_0, y_0) in screenspace: </p>
+            <p> &emsp; x1 = 0</p>
+            <p> &emsp; y1 = 0</p>
+            <p> &emsp; iter = 0</p>
+            <p> &emsp; zn = 0</p>
+            <p> // Main escape algorithm </p>
+            <p>&emsp; do </p>
+            <p>&emsp; &emsp; y1 = 2 * x * y + y_0</p>
+            <p>&emsp; &emsp; x1 = x*x - y*y + x_0</p>
+            <p>&emsp; &emsp; zn = x1*x1 + y2*y2</p>
+            <p>&emsp; &emsp; iter += 1</p>
+            <p>&emsp; while zn <= 4 and iter < MAX_ITERS</p>
+
+        </code>
+        <p>From here, we apply a smooth coloring algorithm, and convert to HSV</p>
     </div>
     </body>
 </html>
