@@ -52,15 +52,16 @@ html, body {
 
 }
 .panel {
-    position: fixed;
+    position: absolute;
     display: flex;
     background-color: rgba(233, 229, 229, 0.389);
     border-radius: 10px;
     top:10%;
     left:50%;
     width: fit-content;
-    height: fit-content;
-    transform: translateX(-50%)
+    /* max-height: 80vh; */
+    transform: translateX(-50%);
+    overflow-y: auto;
 }
 
 .image-grid {
@@ -81,6 +82,18 @@ html, body {
 
 #mandelbrot {
     background-image: url('pics/mandelbrot.png');
+}
+#minecraft {
+    background-image: url('pics/minecraft.png');
+}
+#cengine {
+    background-image: url('pics/engine.png');
+}
+#final {
+    background-image: url('pics/final.png');
+}
+#gamejam {
+    background-image: url('pics/wireframe.png');
 }
 figure {
     padding: 4px;
