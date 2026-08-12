@@ -6,7 +6,12 @@ class Navbar extends HTMLElement {
       </div>
       <div class="navbar-center">
         <button class ="nav-button" onclick="location.href='/src/pages/portfolio.html'">PORTFOLIO</button>
-        <button class ="nav-button">BUTTON 1</button>
+        <button class ="nav-button">RESUME</button>
+        <button class ="nav-button">PHOTOGRAPHY</button>
+      </div>
+      <div class = "navbar-right">
+        <i class="fa-brands fa-linkedin"></i>
+        <i class="fa-brands fa-github"></i>
       </div>
     </nav>`;
     }

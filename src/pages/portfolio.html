@@ -5,6 +5,7 @@
         <title>Portfolio</title>
         <link rel="stylesheet" href="../../main.css">
         <script src="../components/navbar.ts" defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     </head>
     <body>
          <canvas id="background" width="800" height="600"></canvas>
@@ -13,12 +14,12 @@
     <site-navbar></site-navbar>
     <div class="panel">
         <div class ="image-grid">
-            <figure>
-                <button class="image-button" id="mandelbrot" alt="Mandelbrot set" onclick="location.href='mandelbrot.html'" ></button>
+            <figure onclick="location.href='mandelbrot.html'">
+                <button class="image-button" id="mandelbrot" alt="Mandelbrot set"  ></button>
                 <figcaption>CPU Rendered Mandelbrot Set</figcaption>
             </figure>
-            <figure>
-                <button class="image-button" id="minecraft" onclick="location.href='minecraft.html'"></button>
+            <figure onclick="location.href='minecraft.html'">
+                <button class="image-button" id="minecraft" ></button>
                 <figcaption>Java Minecraft Clone</figcaption>
             </figure>
             <figure>
