@@ -2,7 +2,7 @@
 <html>
 <head>
         <meta charset="utf-8">
-        <title>Portfolio</title>
+        <title>Java Minecraft Clone</title>
         <link rel="stylesheet" href="../../main.css">
         <script src="../components/navbar.ts" defer></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,11 +21,17 @@
        My homework partner had experience in programming Minecraft plugins, and with my experience in graphics, we decided to create a Minecraft clone.
        We used the Lightweight Java Game Library (LWJGL), which provided bindings for windowing, inputs, and OpenGL, and sl4j for logging.
     <h2>OOP Concepts</h2>
-    <p>Throughout the project, we implemented several OOP concepts to add abstraction, polymorphism, inheritance, and encapsulation</p>
-
-
-
+    <p>Because of the scope of this project, we needed to implement several OOP patterns with a data oriented design pattern.</p>
+    <ul>
+      <li><b>Factory: </b> Entities are created using a simple factory pattern</li>
+      <li><b>Observer:</b> Renderer observes window for resizing, entities send update notifications when they move</li>
+      <li><b>Command:</b> Keybinds are mapped to commands, which get executed by various objects</li>
+      <li><b>Facade: </b>Wrappers around JOML vectors to simplify usage</li>
+    </ul>
     </p>
+    <img src="../../pics/house.png" alt="Minecraft house" style="width:100%; height:100%">
+    <figcaption>Simple house built in-game</figcaption>
+
 
     </div>
     </body>
