@@ -13,6 +13,29 @@
         <script type="module" src="../renderer.ts"></script>
     <!-- Navbar. See src/components -->
     <site-navbar></site-navbar>
+    <div class="projects-panel">
+    <img src="../../pics/final.png" alt="Mandelbrot set" style="width:100%; height:100%">
+
+    <h1>Overview</h1>
+    <p>This was my submission for my intro to graphics programming final. It utilizes a custom save format to quickly add / remove models, dynamic lighting,
+        a custom wave shader, and custom shapes generated at runtime.
+    </p>
+    <h2>Wave Shader</h2>
+    The waves are generated as a normal map, creating highlights and shadows depending on where the light source in the scene is.
+    To generate the heightmap, the UV coordinate is passed into a perlin noise function:
+    <code>
+        <p>float height = perlin(Texture + vec2(0.0, time * 0.3));</p>
+    </code>
+    Which gives the height at that coordinate during the current dt. Then, the dx and dy are calculated by once again using the perlin noise function
+    <code>
+           <p> float dx = perlin(Texture * 10.0 + vec2(0.01, time * 0.3)) - height; </p>
+           <p> float dy = perlin(Texture * 10.0 + vec2(0.0, time * 0.3 + 0.01)) - height; </p>
+    </code>
+    The final values are interpolated with the actual surface normals to give the following result:
+
+     <img src="../../pics/waves.gif" alt="Mandelbrot set" style="width:100%; height:100%">
+    </div>
+
     </body>
 </head>
 </html>

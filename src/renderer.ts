@@ -1,5 +1,5 @@
 import type { IRenderer } from "./IRenderer";
-import { WebGPURenderer } from "./renderers/webgpu";
+// import { WebGPURenderer } from "./renderers/webgpu";
 import { WebGLRenderer } from "./renderers/webgl";
 
  async function main() {
