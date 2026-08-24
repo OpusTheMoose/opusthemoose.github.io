@@ -1,6 +1,6 @@
 import { type IRenderer } from "../IRenderer";
-import bgVertSource from "../../shaders/webgl/background.vert?raw";
-import bgFragSource from "../../shaders/webgl/background.frag?raw";
+import bgVertSource from "/shaders/webgl/background.vert?raw";
+import bgFragSource from "/shaders/webgl/background.frag?raw";
 
 
 
