@@ -2,10 +2,10 @@ class Navbar extends HTMLElement {
     connectedCallback() {
       this.innerHTML = `<nav class="navbar">
       <div class="navbar-left">
-        <button class="nav-button" onclick="location.href='/index.html'">HOME</button>
+        <button class="nav-button" onclick="location.href='${import.meta.env.BAE_URL}/index.html'">HOME</button>
       </div>
       <div class="navbar-center">
-        <button class ="nav-button" onclick="location.href='/src/pages/portfolio.html'">PORTFOLIO</button>
+        <button class ="nav-button" onclick="location.href='${import.meta.env.BAE_URL}src/pages/portfolio.html'">PORTFOLIO</button>
         <button class ="nav-button">RESUME</button>
         <button class ="nav-button">PHOTOGRAPHY</button>
       </div>
