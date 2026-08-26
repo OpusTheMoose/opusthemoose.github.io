@@ -10,8 +10,8 @@ class Navbar extends HTMLElement {
         <button class ="nav-button">PHOTOGRAPHY</button>
       </div>
       <div class = "navbar-right">
-        <i class="fa-brands fa-linkedin"></i>
-        <i class="fa-brands fa-github"></i>
+        <a href="https://www.linkedin.com/in/ryjohn/"> <i class="fa-brands fa-linkedin"></i></a>
+        <a href ="https://github.com/OpusTheMoose/"><i class="fa-brands fa-github"></i></a>
       </div>
     </nav>`;
     }
